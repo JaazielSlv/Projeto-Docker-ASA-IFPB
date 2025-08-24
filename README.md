@@ -57,8 +57,7 @@ Antes de começar, garanta que você tenha os seguintes softwares instalados:
 
 1.  **Clone o repositório:**
     ```bash
-    git clone URL_DO_SEU_REPOSITORIO_GIT
-    cd nome-da-pasta-do-projeto
+    git clone https://github.com/JaazielSlv/Projeto-Docker-ASA-IFPB.git
     ```
 
 2.  **Suba a infraestrutura:**
