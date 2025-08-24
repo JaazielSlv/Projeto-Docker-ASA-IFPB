@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # Container 1: O Proxy Reverso com nossa imagem personalizada do Nginx
+  webproxy:
+    [cite_start]image: SEU_DOCKER_ID/nginx-proxy:latest  # Imagem personalizada que publicamos [cite: 49, 56]
+    container_name: webproxy
+    ports:
+      - [cite_start]"8080:8080"  # Expõe a porta 8080 do container para a porta 8080 da VM 
+    networks:
+      - [cite_start]wordpress  # Conecta este container à rede 'wordpress' 
+    depends_on:
+      - webserver # Garante que o container do wordpress inicie antes do proxy
+
+  # Container 2: O servidor web com a aplicação WordPress
+  webserver:
+    [cite_start]image: wordpress:latest  # Imagem oficial do WordPress 
+    container_name: webserver
+    environment:
+      WORDPRESS_DB_HOST: database # Aponta para o container do banco de dados
+      WORDPRESS_DB_USER: wordpress_user
+      WORDPRESS_DB_PASSWORD: strong_password
+      WORDPRESS_DB_NAME: wordpress_db
+    volumes:
+      - [cite_start]app:/var/www/html  # Monta o volume persistente 'app' [cite: 60]
+    networks:
+      - [cite_start]wordpress  # Conecta este container à rede 'wordpress' 
+    depends_on:
+      - database # Garante que o banco de dados inicie antes do wordpress
+
+  # Container 3: O banco de dados MySQL
+  database:
+    [cite_start]image: mysql:latest  # Imagem oficial do MySQL 
+    container_name: database
+    environment:
+      MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: wordpress_user
+      MYSQL_PASSWORD: strong_password
+      MYSQL_ROOT_PASSWORD: very_strong_root_password
+    volumes:
+      - [cite_start]my:/var/lib/mysql  # Monta o volume persistente 'my' [cite: 61]
+    networks:
+      - [cite_start]wordpress  # Conecta este container à rede 'wordpress' 
+
+# Define os volumes persistentes
+volumes:
+  [cite_start]app: {}  # Volume para os arquivos do WordPress [cite: 59, 60]
+  [cite_start]my: {}   # Volume para os dados do MySQL [cite: 59, 61]
+
+# Define a rede customizada
+networks:
+  [cite_start]wordpress: {} # Rede para comunicação entre os containers
