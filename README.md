@@ -91,7 +91,7 @@ O projeto é composto por três arquivos principais de configuração, conforme 
 ## 👥 Autores
 
 -   **Jaaziel Silva** - Matrícula: `20232380015`
--   **Lucas Jaasiel** - Matrícula: `20232380005`
+-   **Lucas Jaaiel** - Matrícula: `20232380005`
 
 ## 🎓 Contexto Acadêmico
 
