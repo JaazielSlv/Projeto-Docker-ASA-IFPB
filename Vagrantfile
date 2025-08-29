@@ -35,4 +35,4 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "/vagrant/playbook_ansible.yml"
   end
 
-end # <--- Esta é a linha que estava faltando.
+end 
