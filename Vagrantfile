@@ -3,19 +3,19 @@
 
 Vagrant.configure("2") do |config|
 
-  # Define a imagem (Box) do sistema operacional.
+  # Define a imagem do sistema.
   config.vm.box = "debian/bookworm64"
 
-  # Define o nome da máquina virtual (hostname).
+  # Define o nome da máquina virtual.
   config.vm.hostname = "jaaziel.lucas"
 
-  # Desativa a verificação por atualizações da imagem base (Box).
+  # Desativa a verificação por atualizações da imagem base.
   config.vm.box_check_update = false
 
   # Configura a rede privada da máquina virtual.
   config.vm.network "private_network", ip: "192.168.56.155"
 
-  # Configura o provedor da virtualização (VirtualBox).
+  # Configura o provedor da virtualização.
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
     vb.check_guest_additions = false
