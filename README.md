@@ -87,7 +87,7 @@ O projeto é composto por três arquivos principais de configuração, conforme 
 
 ## 🎓 Contexto Acadêmico
 
-Este trabalho foi desenvolvido para a disciplina de **Administração de Sistemas Abertos** do curso de Análise e Desenvolvimento de Sistemas do **Instituto Federal da Paraíba (IFPB) - Campus João Pessoa**.
+Este trabalho foi desenvolvido para a disciplina de **Administração de Sistemas Abertos** do curso de Redes de Computadores do **Instituto Federal da Paraíba (IFPB) - Campus João Pessoa**.
 
 -   **Professor:** Leonidas Lima
 -   **Período:** 2025.1
