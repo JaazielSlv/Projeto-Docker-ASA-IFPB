@@ -1,67 +1,59 @@
-# Projeto 02: Infraestrutura como Código com Vagrant, Ansible e Docker
+# Projeto: Infraestrutura como Código com Vagrant, Ansible e Docker
 
 ![Vagrant](https://img.shields.io/badge/Vagrant-2.4.1-1868F2?style=for-the-badge&logo=vagrant)
-![Ansible](https://img.shields.io/badge/Ansible-2.12%2B-EE0000?style=for-the-badge&logo=ansible)
+![Ansible](https://img.shields.io/badge/Ansible-7.7-EE0000?style=for-the-badge&logo=ansible)
 ![Docker](https://img.shields.io/badge/Docker-24.0-2496ED?style=for-the-badge&logo=docker)
 
-Projeto acadêmico para a disciplina de **Administração de Sistemas Abertos** [cite: 7, 70][cite_start], focado na automação completa do provisionamento e configuração de uma infraestrutura web para uma aplicação WordPress, utilizando práticas de Infraestrutura como Código (IaC).
-
-## 📋 Tabela de Conteúdos
-- [Sobre o Projeto](#-sobre-o-projeto)
-- [Arquitetura da Aplicação](#-arquitetura-da-aplicação)
-- [Tecnologias Utilizadas](#-tecnologias-utilizadas)
-- [Como Executar](#-como-executar)
-- [Estrutura dos Arquivos](#-estrutura-dos-arquivos)
-- [Autores](#-autores)
-- [Contexto Acadêmico](#-contexto-acadêmico)
+Projeto acadêmico para a disciplina de **Administração de Sistemas Abertos**, focado na automação completa do provisionamento e configuração de uma infraestrutura web para uma aplicação WordPress, utilizando práticas de Infraestrutura como Código (IaC).
 
 ## 📌 Sobre o Projeto
 
 O objetivo deste projeto é demonstrar o uso integrado de ferramentas de automação para construir um ambiente de servidor completo a partir do zero, com um único comando. O fluxo segue três etapas principais:
 
 1.  **Provisionamento:** O `Vagrant` cria e configura uma máquina virtual Debian.
-2.  **Configuração:** O `Ansible` é executado dentro da VM para instalar o Docker e suas dependências.
-3.  **Implantação:** O `Docker Compose` é orquestrado pelo Ansible para implantar a aplicação WordPress em um ambiente multi-container.
+2.  **Configuração:** O `Ansible` é executado para instalar o Docker e orquestrar os containers definidos no `docker-compose.yml`.
+3.  **Implantação:** O `Docker Compose` é utilizado para implantar a aplicação WordPress em um ambiente multi-container.
 
 ## 🏗️ Arquitetura da Aplicação
 
-A infraestrutura da aplicação é composta por três containers Docker que se comunicam através de uma rede privada [cite: 55, 62], com os dados persistidos em volumes nomeados. Apenas o proxy é exposto para a máquina host.
+A infraestrutura da aplicação é composta por três containers Docker que se comunicam através de uma rede privada, com os dados persistidos em volumes nomeados. Apenas o proxy é exposto para a máquina host.
 
 -   **`webproxy`**: Um container Nginx personalizado atuando como um proxy reverso e Load Balancer de Camada 4. Ele recebe as requisições na porta `8080` e as encaminha para o container do WordPress.
 -   **`webserver`**: Um container com a imagem oficial do WordPress, contendo a aplicação PHP e o servidor web Apache.
 -   **`database`**: Um container com a imagem oficial do MySQL, servindo como banco de dados para o WordPress.
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **Virtualização e Provisionamento:**
-  - [Vagrant](https://www.vagrantup.com/)
-  - [VirtualBox](https://www.virtualbox.org/)
+  - Vagrant
+  - VirtualBox
 - **Gerenciamento de Configuração:**
-  - [Ansible](https://www.ansible.com/)
+  - Ansible
 - **Conteinerização:**
-  - [Docker](https://www.docker.com/)
-  - [Docker Compose](https://docs.docker.com/compose/)
+  - Docker
+  - Docker Compose
 - **Aplicação:**
-  - [WordPress](https://wordpress.org/)
-  - [Nginx](https://www.nginx.com/)
-  - [MySQL](https://www.mysql.com/)
+  - WordPress
+  - Nginx
+  - MySQL
 
 ## 🚀 Como Executar
 
 ### Pré-requisitos
 
 Antes de começar, garanta que você tenha os seguintes softwares instalados:
--   [VirtualBox]
--   [Vagrant]
+-   VirtualBox
+-   Vagrant
 
 ### Passo a Passo
 
 1.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/JaazielSlv/Projeto-Docker-ASA-IFPB.git
+    git clone https://github.com/JaazielSlv/Projeto-Docker-IFPB.git
     ```
 
 2.  **Suba a infraestrutura:**
-    Execute o comando mágico. O Vagrant cuidará de todo o resto!
+    Execute o comando que automatiza todo o processo:
     ```bash
     vagrant up
     ```
@@ -88,14 +80,14 @@ O projeto é composto por três arquivos principais de configuração, conforme 
 -   `docker-compose.yml`: Descreve o ambiente multi-container da aplicação, definindo os serviços, redes, volumes e portas a serem utilizadas pelo Docker.
 -   `nginx-proxy/`: Pasta contendo o `Dockerfile` e `nginx.conf` para a criação da imagem personalizada do Nginx.
 
-## 👥 Autores
+## 💻 Desenvolvedores
 
--   **Jaaziel Silva** - Matrícula: `20232380015`
--   **Lucas Jaaiel** - Matrícula: `20232380005`
+- Jaaziel Silva
+- Lucas Jaasiel
 
 ## 🎓 Contexto Acadêmico
 
-Este trabalho foi desenvolvido para a disciplina de **Administração de Sistemas Abertos** do curso de Redes de Computadores do **Instituto Federal da Paraíba (IFPB) - Campus João Pessoa**.
+Este trabalho foi desenvolvido para a disciplina de **Administração de Sistemas Abertos** do curso de Análise e Desenvolvimento de Sistemas do **Instituto Federal da Paraíba (IFPB) - Campus João Pessoa**.
 
--   **Professor:** Leonidas Lima 
+-   **Professor:** Leonidas Lima
 -   **Período:** 2025.1
