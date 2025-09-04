@@ -1,95 +1,71 @@
 
+#########################################
+### Define a versão do Docker Compose ###
+#########################################
 version: '3.8'
 
-
-
+#################################
+### Configuração dos serviços ###
+#################################
 services:
 
+  ##############################
+  ### Serviço de proxy NGINX ###
+  ##############################
   webproxy:
-
     image: jaazielbatista/nginx-proxy:latest
-
     container_name: webproxy
-
     ports:
-
       - "8080:8080"
-
     networks:
-
       - wordpress
-
     depends_on:
-
       - webserver
 
-
-
+  ############################
+  ### Serviço do WordPress ###
+  ############################
   webserver:
-
     image: wordpress:latest
-
     container_name: webserver
-
     environment:
-
       WORDPRESS_DB_HOST: database
-
       WORDPRESS_DB_USER: wordpress_user
-
       WORDPRESS_DB_PASSWORD: strong_password
-
       WORDPRESS_DB_NAME: wordpress_db
-
     volumes:
-
       - app:/var/www/html
-
     networks:
-
       - wordpress
-
     depends_on:
-
       - database
 
-
-
+  #######################################
+  ### Serviço do banco de dados MySQL ###
+  #######################################
   database:
-
     image: mysql:latest
-
     container_name: database
-
     environment:
-
       MYSQL_DATABASE: wordpress_db
-
       MYSQL_USER: wordpress_user
-
       MYSQL_PASSWORD: strong_password
-
       MYSQL_ROOT_PASSWORD: very_strong_root_password
-
     volumes:
-
       - my:/var/lib/mysql
-
     networks:
-
       - wordpress
 
-
-
+##########################################
+### Definição dos volumes persistentes ###
+##########################################
 volumes:
-
   app: {}
-
   my: {}
 
-
-
+##########################################
+### Definição da rede personalizada     ###
+##########################################
 networks:
-
   wordpress: {}
 

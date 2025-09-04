@@ -1,15 +1,20 @@
----
-- hosts: all         # Define que este playbook vai rodar em todas as máquinas gerenciadas pelo Vagrant.
-  become: yes        # Executa as tarefas como superusuário (root), similar a usar 'sudo'.
+
+
+- hosts: all
+  become: yes
 
   tasks:
-    # Tarefa 1: Atualiza o sistema operacional.
+    ##############################################
+    ### Atualiza e faz upgrade dos pacotes apt ###
+    ##############################################
     - name: Update and upgrade apt packages
       apt:
-        update_cache: yes # Atualiza a lista de pacotes disponíveis.
-        upgrade: 'yes'    # Atualiza todos os pacotes instalados para a versão mais recente.
+        update_cache: yes
+        upgrade: 'yes'
 
-    # Tarefa 2: Instala pacotes básicos que o Docker precisa para funcionar.
+    ######################################
+    ### Instala dependências do Docker ###
+    ######################################
     - name: Install dependencies for Docker
       apt:
         name:
@@ -17,18 +22,20 @@
           - curl
           - gnupg
           - lsb-release
-        state: present    # Garante que os pacotes listados estejam instalados.
+        state: present
 
-    # Tarefa 3: Adiciona a chave de segurança (GPG) do Docker.
-    # Isso garante que o software que vamos baixar é autêntico e seguro.
+    ######################################
+    ### Adiciona a chave GPG do Docker ###
+    ######################################
     - name: Add Docker GPG key
       shell: |
         install -m 0755 -d /etc/apt/keyrings
         curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
         chmod a+r /etc/apt/keyrings/docker.gpg
 
-    # Tarefa 4: Adiciona o repositório oficial do Docker.
-    # Informa ao sistema onde ele deve procurar para baixar o Docker.
+    ########################################
+    ### Adiciona o repositório do Docker ###
+    ########################################
     - name: Add Docker repository
       shell: |
         echo \
@@ -36,7 +43,9 @@
           $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
           tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-    # Tarefa 5: Instala o Docker e o Docker Compose.
+    ##############################################
+    ### Instala Docker Engine e Docker Compose ###
+    ##############################################
     - name: Install Docker Engine and Docker Compose
       apt:
         name:
@@ -44,18 +53,20 @@
           - docker-ce-cli
           - containerd.io
           - docker-buildx-plugin
-          - docker-compose-plugin # O Docker Compose agora é um plugin oficial do Docker.
+          - docker-compose-plugin
         state: present
-        update_cache: yes # Atualiza a lista de pacotes novamente após adicionar o novo repositório.
+        update_cache: yes
 
-    # Tarefa 6: Copia nosso arquivo de configuração do Docker.
-    # Pega o 'docker-compose.yml' do seu computador e envia para a máquina virtual.
+    ############################################
+    ### Copia o docker-compose.yml para a VM ###
+    ############################################
     - name: Copy docker-compose.yml to the VM
       copy:
-        src: ./docker-compose.yml          # O arquivo de origem na sua máquina.
-        dest: /home/vagrant/docker-compose.yml # O local de destino dentro da VM.
+        src: ./docker-compose.yml
+        dest: /home/vagrant/docker-compose.yml
 
-    # Tarefa 7: Executa o Docker Compose para iniciar a aplicação.
-    # Este comando lê o arquivo 'docker-compose.yml' e cria os containers.
+    ################################
+    ### Executa o Docker Compose ###
+    ################################
     - name: Run Docker Compose
-      shell: "cd /home/vagrant && docker compose up -d" # O '-d' faz os containers rodarem em segundo plano.
+      shell: "cd /home/vagrant && docker compose up -d"
