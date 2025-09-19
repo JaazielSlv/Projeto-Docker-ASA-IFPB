@@ -83,7 +83,7 @@ O projeto é composto por três arquivos principais de configuração, conforme 
 ## 💻 Desenvolvedores
 
 - Jaaziel Silva
-- Lucas Jaasiel
+- Lucas Jaiel
 
 ## 🎓 Contexto Acadêmico
 
